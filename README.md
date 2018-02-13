@@ -1,1 +1,0 @@
-# ansible-vmw-createvm
