@@ -79,14 +79,18 @@
   set_fact:
     static: "{{ static_ip | bool }}"
 
-
-#
-
-
+#check input
 - include_tasks: check_input_vars.yml
 
 - include_tasks: check_static_ip.yml
   when: (static == 'true')
+#- include_tasks: check_dynamic_ip.yml
+#  when: not static_ip | d() | bool
+- name: set add_hw bool fact
+  set_fact:
+    add_hw: true
+  when: add_disk_array is defined and add_disk_array != ''
 
 - include_tasks: check_disk_array.yml
-  when: true
+  when: add_hw
+
